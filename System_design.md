@@ -9,3 +9,5 @@
 * Android 2.2
 
 
+![расположение](https://github.com/ArtemPinkevich/ComfMP/blob/master/Interface/UI.png "Дополнительное описание") 
+
