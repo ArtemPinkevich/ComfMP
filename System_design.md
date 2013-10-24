@@ -17,7 +17,7 @@
 * ####Макет главного окна программы
 <br>
 
-<img src="https://github.com/ArtemPinkevich/ComfMP/blob/master/Interface/UI.png?raw=true" style="width: 300px;"/>
+<img src="https://github.com/ArtemPinkevich/ComfMP/blob/master/Interface/UI.png?raw=true" width="300px"/>
 
 На данном рисунке изображено расположение элементов на главном окне программы. В левом верхнем углу находится иконка плейлиста. При нажатии на нее открывается стекущий плейлист, из него можно перейти ко списку всех плейлистов.
 
