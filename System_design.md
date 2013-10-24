@@ -14,7 +14,7 @@
 
 ### Описание пользовательского интерфейса
 <br>
-* ####Макет главного окна программы
+* #### Макет главного окна программы
 <br>
 
 <img src="https://github.com/ArtemPinkevich/ComfMP/blob/master/Interface/UI.png?raw=true" width="300px"/>
