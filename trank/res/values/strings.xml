@@ -5,4 +5,6 @@
     <string name="play_str">PLAY</string>
     <string name="pause_str">PAUSE</string>
 
+    <string name="sd">SD</string>
+
 </resources>
