@@ -7,57 +7,34 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-
 public class ListSongs extends ListActivity {
-    /**
-     * Called when the activity is first created.
-     */
+
+    ControllerListSongs _controller;
+    private String _playlistName;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         // setContentView(R.layout.main);
-        GetPlayList();
 
-    }
-    /*
-    // Обработка нажатия на список ListActivity
-    protected void onListItemClick(android.widget.ListView l, View v,
-                                   int position, long id) {
+        // Получаем название плейлиста
+        Intent intent = getIntent();
+        _playlistName = intent.getStringExtra("PLAYLIST_NAME");
 
-        // Вывод сообщения о выбранном элементе
-        Toast.makeText(
-                getApplicationContext(),
-                "Вы выбрали "
-                        + l.getItemAtPosition(position).toString(),
-                Toast.LENGTH_SHORT).show();
+        _controller = new ControllerListSongs(this, _playlistName);
 
-    }     */
-
-
-    // Обработка нажатия на список ListActivity
-    protected void onListItemClick(android.widget.ListView l, View v,
-                                   int position, long id) {
-
-        Intent answerIntent = new Intent();
-        answerIntent.putExtra("KEY_LISTSONGS", id);
-
-        setResult(RESULT_OK, answerIntent);
-        finish();   // Закрываем активити
-
-
-        //Intent startIntent = new Intent(this, PlayActivity.class);
-       // startIntent.putExtra("id", id);
-       // startActivity(startIntent);
+        PrintListSongs();
     }
 
-
-
-    public void GetPlayList()
+    // Вывод всех песен на экран
+    public void PrintListSongs()
     {
         // Устанавливаем  доступ к списку аудиофайлов
         ContentResolver contentResolver = getContentResolver();
@@ -66,7 +43,7 @@ public class ListSongs extends ListActivity {
 
         // Создаем адаптер для связывания с курсором
         ListAdapter adapter = new SimpleCursorAdapter(this,
-                android.R.layout.two_line_list_item,
+                android.R.layout.two_line_list_item,     // Говорит о том, что на одной строке будут два текста (песня, автор)
                 cursor,
                 new String[] {MediaStore.Audio.Media.TITLE, MediaStore.Audio.Media.ARTIST},
                 new int[] {android.R.id.text1, android.R.id.text2});
@@ -75,5 +52,23 @@ public class ListSongs extends ListActivity {
         setListAdapter(adapter);
     }
 
+    // Обработка нажатия на список ListActivity
+    protected void onListItemClick(android.widget.ListView l, View v, int position, long id)
+    {
+        // Значение нажатого пункта списка
+        Cursor _cursor = (Cursor) getListAdapter().getItem(position);
+        String _nameSong = _cursor.getString(2);
+        String _puthSong = _cursor.getString(1);
+
+        // Добавляем песню в базу (в плейлист)
+        _controller.AddSongInDb(_nameSong, _puthSong);
+
+        // Вывод сообщения о выбранном элементе
+        Toast.makeText(getApplicationContext(),
+                "Добавлена " + _nameSong,
+                Toast.LENGTH_SHORT).show();
+
+        //_cursor.close();
+    }
 
 }

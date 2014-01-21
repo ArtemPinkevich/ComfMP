@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
+              android:layout_width="fill_parent"
               android:layout_height="wrap_content" android:minHeight="50dp">
     <ImageView
             android:id="@+id/icon"
@@ -15,10 +15,10 @@
 
     <TextView
             android:id="@+id/label"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@+id/label"
-            android:textSize="15dp" android:layout_gravity="center">
+            android:textSize="15dp" android:layout_gravity="center_vertical" android:layout_weight="0.9">
     </TextView>
 
 </LinearLayout>

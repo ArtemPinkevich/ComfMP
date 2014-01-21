@@ -14,15 +14,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="Plaer"
-                  android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.PLAYLIST"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-
         <activity android:name=".ListSongs"></activity>
+        <activity android:name=".PlayLists"></activity>
+        <activity android:name=".PlayList"></activity>
 
     </application>
 </manifest> 

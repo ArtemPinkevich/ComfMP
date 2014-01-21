@@ -4,73 +4,56 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Hello!!!=)))"
-            android:layout_alignParentLeft="true" android:layout_marginLeft="0dp" android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp" android:id="@+id/textView"/>
-    <Button
-            android:layout_width="169dp"
-            android:layout_height="wrap_content"
-            android:text="Проверить возврат команды"
-            android:id="@+id/BtnCheckReturn"
-            android:layout_gravity="right|center_vertical"
-            android:layout_alignLeft="@+id/textView" android:layout_alignParentTop="true"
-            android:layout_marginTop="38dp" android:onClick="onClickBtnCheckReturn"/>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:text="ShowListSongs"
-            android:id="@+id/ShowListSongs"
-            android:onClick="onClickShowListSongs" android:layout_alignRight="@+id/seekBar"
-            android:layout_alignTop="@+id/textViewReturnText"/>
     <SeekBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/seekBar"
             android:layout_alignParentLeft="true" android:layout_marginLeft="10dp" android:layout_alignParentTop="true"
-            android:layout_marginTop="300dp"
-            android:layout_alignRight="@+id/textView" android:layout_marginRight="10dp"/>
+            android:layout_marginTop="330dp"
+            android:layout_alignRight="@+id/btnNext"/>
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/play_str"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="PLAY"
             android:id="@+id/buttonPlayStop" android:onClick="playAndStop"
-            android:layout_toLeftOf="@+id/ShowListSongs" android:layout_alignParentTop="true"
-            android:layout_marginTop="230dp"/>
-    <TextView
-            android:layout_width="111dp"
-            android:layout_height="wrap_content"
-            android:text="Здесь будет текст"
-            android:id="@+id/textViewReturnText"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="100dp"
-            android:layout_alignLeft="@+id/seekBar" android:layout_alignRight="@+id/BtnCheckReturn"/>
+            android:layout_marginTop="240dp" android:layout_marginLeft="120dp"/>
+    <Button
+            android:layout_width="110dp"
+            android:layout_height="60dp"
+            android:text="Список плейлистов"
+            android:id="@+id/btnPlaylists"
+            android:onClick="onClickBtnPlaylists"
+            android:layout_alignRight="@+id/seekBar" android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"/>
+    <Button
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:text="Next"
+            android:id="@+id/btnNext"
+            android:onClick="onClickNext"
+            android:layout_marginTop="240dp" android:layout_marginLeft="230dp"/>
+    <Button
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:text="Prev"
+            android:id="@+id/btnPrev"
+            android:onClick="onClickPrev"
+            android:layout_alignParentLeft="true" android:layout_marginLeft="20dp" android:layout_alignParentTop="true"
+            android:layout_marginTop="240dp"/>
+    <Button
+            android:layout_width="110dp"
+            android:layout_height="60dp"
+            android:text="Текущий плейлист"
+            android:id="@+id/button" android:layout_alignLeft="@+id/seekBar"
+            android:layout_alignTop="@+id/btnPlaylists"
+            android:onClick="onClickBtnPlaylist"/>
     <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textViewPlay" android:layout_alignLeft="@+id/seekBar" android:layout_alignParentTop="true"
-            android:layout_marginTop="160dp"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textViewStop"
-            android:layout_alignParentLeft="true" android:layout_marginLeft="10dp" android:layout_alignParentTop="true"
-            android:layout_marginTop="180dp"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textViewPause" android:layout_alignLeft="@+id/seekBar" android:layout_alignParentTop="true"
-            android:layout_marginTop="200dp"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textViewPrepear" android:layout_alignLeft="@+id/seekBar" android:layout_alignParentTop="true"
-            android:layout_marginTop="220dp"/>
+            android:text="Название песни"
+            android:id="@+id/textViewTitle" android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="true" android:layout_marginTop="130dp" android:textSize="20dp"
+            android:gravity="center"/>
 </RelativeLayout>
 
