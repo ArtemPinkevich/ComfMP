@@ -3,6 +3,7 @@ package com.example.ComfMP;
 import android.app.Activity;
 import android.content.*;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
@@ -16,7 +17,10 @@ public class MyActivityComfMP extends Activity {
         super.onCreate(icicle);
         setContentView(R.layout.main);
 
+        Log.d("MY_LOG", "Мы в главной активити, onCreate ");
+
         _player = new Player(this);
+        _player.Load();
     }
 
     // обработчик на Play и Stop
@@ -47,16 +51,39 @@ public class MyActivityComfMP extends Activity {
     public void onResume(){
         super.onResume();
         _player.InitSeekBar((SeekBar)findViewById(R.id.seekBar));
-        //_player.SetTitle((TextView)findViewById(R.id.textViewTitle));
+        /*
+        try{
+            _player.SetTitle((TextView)findViewById(R.id.textViewTitle));
+        }
+        catch (Exception e)
+        {
+            Log.d("MY_LOG_TITLE", "Нет названия песни");
+        }    */
     }
 
     // При закрытии activity сначала вызывается onStop()
     @Override
     protected void onStop() {
         super.onStop();
-        // _player.Pause();
-        // _player.release();
-        //release();
+    }
+
+    // При уничтожение активити
+    @Override
+    protected void onDestroy(){
+
+        if (_player.GetValid())
+        {
+            _player.Save();
+            Log.d("MY_LOG", "СОХРАНИЛИСЬ!!");
+        }
+        else
+        {
+            Log.d("MY_LOG", "Не сохранились!!");
+        }
+
+        Log.d("MY_LOG", "Мы в onDestroy");
+
+        super.onDestroy();
     }
 
 }

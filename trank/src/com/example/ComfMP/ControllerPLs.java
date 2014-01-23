@@ -69,7 +69,7 @@ public class ControllerPLs {
     // Удаление плейлиста
     public void Delete(String _playlistName)
     {
-        _db.DeleteTable(_playlistName);                        // Удаление таблицы
+        _db.DeleteTable(_playlistName);              // Удаление таблицы
         _db.Delete("Playlists", _playlistName);      // Удаление из списка
     }
 

@@ -76,6 +76,78 @@ public class AdapterDB {
 
     }
 
+    // Сохраняем состояние
+    public void SaveState(String _tableName, String _playlistName, String _songName, int _duration)
+    {
+        DeleteAll(_tableName);
+
+        // Создание новой строки со значениями для вставки.
+        ContentValues newValues = new ContentValues();
+        // Задайте значения для каждой строки.
+        newValues.put(MyDataBase.PLAYLIST_CURRENT, _playlistName);
+        newValues.put(MyDataBase.NAME_COL, _songName);
+        newValues.put(MyDataBase.DURATION, _duration);
+        // [ ... Повторить для каждого столбца ... ]
+        // Вставка строки базу данных.
+        _sqdb.insert(_tableName, null, newValues);
+
+    }
+
+    public void Load()
+    {
+
+        Log.d("MY_LOG", "Мы в Адаптере, load");
+
+        ArrayList _list  = new ArrayList();
+
+        // Создание курсора. Он будет указывать на полученные данные из базы данных
+        Cursor cursor = _sqdb.query(MyDataBase.TABLE_CURRENT,
+                new String[] {MyDataBase.UID, MyDataBase.PLAYLIST_CURRENT, MyDataBase.NAME_COL,
+                        MyDataBase.SONG_CURRENT, MyDataBase.DURATION },
+                null, // The columns for the WHERE clause
+                null, // The values for the WHERE clause
+                null, // don't group the rows
+                null, // don't filter by row groups
+                null // The sort order
+        );
+
+        //cursor.moveToFirst();
+
+       // Log.d("MY_LOG", "Мы в Adapter  LOAD: Название плейлиста = " + cursor.getString(cursor.getColumnIndex(MyDataBase.PLAYLIST_CURRENT)));
+        //Log.d("MY_LOG", "Мы в Adapter  LOAD: Название песни = " + cursor.getString(cursor.getColumnIndex(MyDataBase.NAME_COL)));
+
+        String _playlistName = " ";
+        String _songName = " ";
+
+        while (cursor.moveToNext()) {
+
+            Log.d("MY_LOG", "Мы в Adapter  Название плейлиста: " + cursor.getString(cursor.getColumnIndex(MyDataBase.PLAYLIST_CURRENT)));
+            Log.d("MY_LOG", "Мы в Adapter  Номер песни: " + cursor.getInt(cursor.getColumnIndex(MyDataBase.SONG_CURRENT)));
+            Log.d("MY_LOG", "Мы в Adapter  Дурашион: " + cursor.getInt(cursor.getColumnIndex(MyDataBase.DURATION)));
+            Log.d("MY_LOG", "Мы в Adapter  Название песни: " + cursor.getString(cursor.getColumnIndex(MyDataBase.NAME_COL)));
+
+
+            _playlistName = cursor.getString(cursor.getColumnIndex(MyDataBase.PLAYLIST_CURRENT));
+            _songName = cursor.getString(cursor.getColumnIndex(MyDataBase.NAME_COL));
+
+            _player._currentPlaylist = _playlistName;
+            _player._currentSong = cursor.getInt(cursor.getColumnIndex(MyDataBase.SONG_CURRENT));
+            _player._duration = cursor.getInt(cursor.getColumnIndex(MyDataBase.DURATION));
+
+            //_player._playlist = Select(_playlistName);
+        }
+
+        /*
+
+         */
+        cursor.close();
+
+        if (_playlistName != " ")
+        {
+            SetParameter(_playlistName, _songName);
+        }
+    }
+
     public void InsertSong(String _tableName, String _nameSong, String _path)
     {
         // Создание новой строки со значениями для вставки.
@@ -87,6 +159,11 @@ public class AdapterDB {
 
         // Вставка строки базу данных.
         _sqdb.insert(_tableName, null, _newValues);
+    }
+
+    public void DeleteAll(String _tableName)
+    {
+        _sqdb.delete(_tableName, null, null);
     }
 
     public void Delete(String _tableName, String _nameSong)
@@ -115,6 +192,8 @@ public class AdapterDB {
             String _path = cursor.getString(cursor.getColumnIndex("PATH"));
             String _title = cursor.getString(cursor.getColumnIndex(MyDataBase.NAME_COL));
 
+            Log.d("MY_LOG", "Мы в SetParameter  Название песни: " + _title);
+
             // Если нашлась песня по названию, устанавливаем её текущей в плеере
             if (_nameSong.equals(cursor.getString(cursor.getColumnIndex(MyDataBase.NAME_COL))))
             {
@@ -128,7 +207,7 @@ public class AdapterDB {
         cursor.close();
 
         _player._currentPlaylist = _tableName;
-        //_player._titles = _listTitles;
+        _player._titles = _listTitles;
         _player._playlist = _listPath;  // Устанавливаем полученный список текущим в плеере
     }
 

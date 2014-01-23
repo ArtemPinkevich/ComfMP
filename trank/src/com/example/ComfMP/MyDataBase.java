@@ -19,6 +19,14 @@ public class MyDataBase extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "songs_database.db";
     private static final String TABLE_NAME = "Playlists";
+
+    public static final String TABLE_CURRENT = "TableCurrent";
+    public static final String SONG_CURRENT = "SongCurrent";
+    public static final String PLAYLIST_CURRENT = "PlaylistCurrent";
+
+    public static final String DURATION = "Duration";
+
+
     public static final String UID = "_id";
     public static final String NAME_COL = "name";
     private static final int DATABASE_VERSION = 1;    // Номер версии базы данны.
@@ -31,6 +39,15 @@ public class MyDataBase extends SQLiteOpenHelper {
                 + " (" + UID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + NAME_COL + " VARCHAR(255));";
 
+    // Запрос на создание таблицы плейлистов
+    private static final String CREATE_CURRENT = "CREATE TABLE "
+            + TABLE_CURRENT
+            + " (" + UID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + NAME_COL + " VARCHAR(255),"
+            + SONG_CURRENT + " INTEGER,"
+            + DURATION + " INTEGER,"
+            + PLAYLIST_CURRENT + " VARCHAR(255)" + ");";
+
     private static final String DELETE_TABLE_PLAYLISTS = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     // Конструктор
@@ -42,6 +59,9 @@ public class MyDataBase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // Создаем таблицу, в которой будут храниться названия плейлистов
         db.execSQL(CREATE_TABLE_PLAYLISTS);
+
+        // Создаем таблицу для сохранения текущего состояния
+        db.execSQL(CREATE_CURRENT);
     }
 
     @Override

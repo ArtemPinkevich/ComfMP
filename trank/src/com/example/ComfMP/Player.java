@@ -31,7 +31,7 @@ public class Player {
     Context _context;
     private MediaPlayer _mediaPlayer;
     private enum State { NOT_VALID, PLAYING, STOPPED, PAUSED }    // Состояния плеера
-    private State state = State.NOT_VALID;                        // Переменная состояний плеера
+    public State state = State.NOT_VALID;                        // Переменная состояний плеера
     private SeekBar _seekBar;
     private final Handler handler = new Handler();
     private View v;
@@ -40,12 +40,22 @@ public class Player {
     public ArrayList _titles;
     public String _currentPlaylist = "";
     public int _currentSong = 0;
+    public int _duration = 0;
     public String _path;
 
     public Player(Context _context)
     {
          this._context = _context;
         _mediaPlayer = new MediaPlayer();
+    }
+
+    public boolean GetValid()
+    {
+        if (state != State.NOT_VALID)
+        {
+            return true;
+        }
+        return false;
     }
 
     // Обработчик на Play и Stop
@@ -56,7 +66,7 @@ public class Player {
             Pause();
             _btn.setText("PAUSE");
         }
-        else if (state == State.STOPPED || state == State.PAUSED){
+        else if ((state == State.STOPPED) || (state == State.PAUSED)){
             Play();
             _btn.setText("PLAY");
         }
@@ -77,6 +87,30 @@ public class Player {
                 return false;
             }
         });
+    }
+
+    public void Save()
+    {
+        AdapterDB _tmp = new AdapterDB(_context);
+        _tmp.SaveState(MyDataBase.TABLE_CURRENT, _currentPlaylist,
+                (String)_titles.get(_currentSong - 1), _seekBar.getProgress());
+    }
+
+    public void Load()
+    {
+        AdapterDB _tmp = new AdapterDB(_context);
+        _tmp.Load();
+
+        Log.d("MY_LOG", "Мы в  Плеере, Load. Путь = " + _path);
+
+        state = State.PAUSED;
+        Prepare();
+
+        if (_duration != 0)
+        {
+            _mediaPlayer.seekTo(_duration);
+        }
+
     }
 
     public void SetTitle(TextView _textViev)
